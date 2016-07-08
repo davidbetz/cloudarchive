@@ -18,25 +18,26 @@ namespace CloudArchive.Console
 
         private static async Task MainAsync(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel
-                .Debug()
-                .WriteTo
-                .ColoredConsole()
-                //.Trace()
-                .CreateLogger();
             var options = new Options();
             if (Parser.Default.ParseArguments(args, options))
             {
-                options.Area = "books";
+                //options.Area = "books";
                 //options.FullUpdate = true;
-                options.Live = true;
-                //await WebCaller.Post("https://api.content.local/", $"index/{options.Area}/{options.Environment}");
-                //return;
+                //options.Live = true;
                 var full = options.FullUpdate ? "full " : string.Empty;
                 System.Console.WriteLine($"Beginning {full}scan...");
                 try
                 {
+                    if (options.Verbose)
+                    {
+                        Log.Logger = new LoggerConfiguration()
+                            .MinimumLevel
+                            .Debug()
+                            .WriteTo
+                            .ColoredConsole()
+                            //.Trace()
+                            .CreateLogger();
+                    }
                     await Run(options);
                 }
                 catch (Exception ex)
@@ -52,11 +53,7 @@ namespace CloudArchive.Console
         {
             var config = Config.Load();
             IEnumerable<Area> areaData;
-            if (options.Area == "_")
-            {
-                areaData = config.Areas;
-            }
-            else if (string.IsNullOrEmpty(options.Area))
+            if (string.IsNullOrEmpty(options.Area))
             {
                 System.Console.WriteLine("Area is required.");
                 return;
@@ -93,7 +90,10 @@ namespace CloudArchive.Console
             //+
             if (package != null && package.AssetDataList.Count > 0)
             {
-                System.Console.WriteLine($"+Publishing {area}...");
+                if (options.Live)
+                {
+                    System.Console.WriteLine($"Publishing {area}...");
+                }
                 var now = DateTime.Now;
                 var updatedList = new List<SelectorSummary>();
                 if (package.AssetDataList.Count > 0 && string.IsNullOrEmpty(areaConfig.Storage.Provider))
@@ -109,7 +109,7 @@ namespace CloudArchive.Console
                     var later = DateTime.Now;
                     if (options.Verbose)
                     {
-                        System.Console.WriteLine($"-Publish complete ({(later - now).Milliseconds}ms)");
+                        System.Console.WriteLine($"Publish complete ({(later - now).Milliseconds}ms)");
                     }
                     if (options.Verbose)
                     {

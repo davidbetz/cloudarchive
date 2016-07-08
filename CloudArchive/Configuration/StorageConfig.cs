@@ -26,12 +26,12 @@ namespace CloudArchive.Configuration
             {
                 throw new NullReferenceException($"Storage key2 required ({areaConfig.Name}).");
             }
-            if (storage.Key1.StartsWith("[") && storage.Key1.EndsWith("]"))
+            if (storage.Key1.StartsWith("(") && storage.Key1.EndsWith(")"))
             {
                 var key1FileName = storage.Key1.Substring(1, storage.Key1.Length - 2);
                 storage.Key1 = File.ReadAllText(key1FileName);
             }
-            if (storage.Key2.StartsWith("[") && storage.Key2.EndsWith("]"))
+            if (storage.Key2.StartsWith("(") && storage.Key2.EndsWith(")"))
             {
                 var key2FileName = storage.Key2.Substring(1, storage.Key2.Length - 2);
                 storage.Key2 = File.ReadAllText(key2FileName);

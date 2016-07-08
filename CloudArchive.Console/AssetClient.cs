@@ -1,11 +1,11 @@
-using CloudArchive.Client;
-using CloudArchive.Configuration;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CloudArchive.Client;
+using CloudArchive.Configuration;
+using Serilog;
 
-namespace CloudArchive
+namespace CloudArchive.Console
 {
     public static class AssetClient
     {
@@ -26,6 +26,7 @@ namespace CloudArchive
                 {"gif", "image/gif"},
                 {"pdf", "application/pdf"},
                 {"txt", "text/plain"},
+                {"md", "text/plain"},
                 {"htm", "text/html"},
                 {"html", "text/html"}
             };
@@ -38,7 +39,6 @@ namespace CloudArchive
             var areaConfig = Config.LoadArea(area);
             foreach (var asset in package.AssetDataList)
             {
-                //var selector = Selector.Create(asset.RelativePath, keepDot: true);
                 string selector = asset.RelativePath;
                 if (!String.IsNullOrEmpty(areaConfig.RemoteBranch))
                 {
@@ -56,13 +56,13 @@ namespace CloudArchive
                             Selector = asset.RelativePath,
                             Hash = await client.Update(area, selector, GetContentType(asset.Extension), asset.Read())
                         });
-                        Log.Logger.Debug($"Updated asset {selector}");
+                        Log.Logger.Debug($"Updated file {selector}");
 
                     }
                 }
                 else
                 {
-                    Log.Logger.Debug($"Asset {selector} would have been updated in live mode.");
+                    Log.Logger.Debug($"File {selector} would have been updated in live mode.");
                 }
             }
             if (live)
