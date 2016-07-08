@@ -1,9 +1,9 @@
-#CloudArchive
-*Copyright (c) 2015-2016 David Betz*
+CloudArchive
+Copyright (c) 2015-2016 David Betz
 
-**Tool to mirror local branches to Azure or S3.**
+Tool to mirror local branches to Azure or S3.
 
-## Config
+Config
 
 First, you create storage config (with keys). Then, you create "areas" with a name (simply) for output, a folder (the branch you want to mirror), what storage config you want (created from previous step), what file types you want to scan for (sometimes you'll want zip/rar to one storage system and images to a different one), and, optionally, what remote branch you want the entire thing put under.
 
@@ -60,7 +60,7 @@ Basically, do the following...
           
 In this example, I'm searching a book folder (personally, I scan and OCR most of my books), and putting the raw images in one place and the OCRed text files in another. A common senario might be to put images in photo album backups in one place and home videos in another. In the above scenario, they are in the same storage account, but in different folders, they could just as easily be put in different ones (hot storage and cool storage), or just in different containers (private and public or just two for the sake of two).
 
-## Usage
+Usage
         
 You run this with this:
 
@@ -76,13 +76,13 @@ Get itemized output with the -v option:
 
 Basically just look at the command line options.
 
-## Optimization
+Optimization
         
 A local .dates.json file is created to optimize uploads. The system will check hashes to see if the file changed. This also means updates are incremental (only new or updates files are uploaded). You can invalidate a single file by modifying it's entry in the file or you can do a full upload with the -f command line option.
 
 Note: if you change the storage config, you'll have to run with -f or else the system will think nothing has changed. Which makes sense, because nothing has.
 
-## Sensitive Keys
+Sensitive Keys
 
 Because putting sensitive information in config files is stupid, you can put your key in a file and simply reference the file name in ().
 
