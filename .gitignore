@@ -3,3 +3,16 @@
 ################################################################################
 
 /CloudArchive/bin/Debug
+/CloudArchive/obj/Debug
+/CloudArchive.Azure/obj/Debug
+/CloudArchive.Client/obj/Debug
+/CloudArchive.Cloud/bin/Debug
+/CloudArchive.Cloud/obj/Debug
+/CloudArchive.S3/obj/Debug
+/packages
+*.suo
+/CloudArchive.Azure/bin/Debug
+/CloudArchive.Client/bin/Debug
+/CloudArchive.S3/bin/Debug
+/CloudArchive.Console/bin/Debug
+/CloudArchive.Console/obj/Debug

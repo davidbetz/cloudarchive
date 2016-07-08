@@ -1,0 +1,40 @@
+﻿storageAccounts:
+    - name: cloudarchive01
+      provider: azure
+      key1: cP1lAobergwFReyCdSpJRKcVaAmh5rFUCWfUnQW4W7s4dbX/WrKFt0K8O4cG7awj35tbDCTgskWABU5X43dQEA==
+      key2: (azure only uses key 1)
+        
+    - name: cloudarchive02
+      provider: s3
+      key1: AKIAINNNBU3QEV3SYJFA
+      key2: h4bl2yyb59iqK4Lzb3FyDetT3sSUnYFvSQYcdmTT
+  
+areas:
+  - name: books
+    folder: C:\_BOOK
+    container: images
+    remoteBranch: books
+    storage: cloudarchive01
+    fileTypes:
+        - extension: png
+        - extension: svg
+        - extension: jpg
+        - extension: jpeg
+        - extension: gif
+  
+  - name: mp3
+    folder: C:\_AUDIOTEST
+    container: mp3
+    storage: cloudarchive01
+    fileTypes:
+        - extension: mp3
+       
+  - name: archives
+    remoteBranch: misc
+    container: (s3 does not use container; use remoteBranch for a remote folder)
+    folder: C:\_ARCHIVETEST
+    storage: cloudarchive02
+    fileTypes:
+        - extension: zip
+        - extension: rar
+        - extension: gz
