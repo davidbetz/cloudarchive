@@ -12,8 +12,5 @@ namespace CloudArchive.Configuration
         public string Key1 { get; set; }
 
         public string Key2 { get; set; }
-        
-        //[YamlMember(Alias = "corsOrigin")]
-        //public List<string> CorsOriginList { get; set; }
     }
 }

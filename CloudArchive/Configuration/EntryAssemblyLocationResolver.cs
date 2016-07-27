@@ -10,8 +10,12 @@ namespace CloudArchive.Configuration
         {
             if (name.Contains("[entryassembly]"))
             {
-                var entryAssemblyLocation = new FileInfo(Assembly.GetEntryAssembly().Location).Directory.FullName;
-                name = new Regex(@"\[entryassembly\]\\?").Replace(name, entryAssemblyLocation + "\\");
+                var directoryInfo = new FileInfo(Assembly.GetEntryAssembly().Location).Directory;
+                if (directoryInfo != null)
+                {
+                    var entryAssemblyLocation = directoryInfo.FullName;
+                    name = new Regex(@"\[entryassembly\]\\?").Replace(name, entryAssemblyLocation + "\\");
+                }
             }
             return name;
         }

@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using CloudArchive.Client;
 using CloudArchive.Configuration;
 using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CloudArchive.Console
 {

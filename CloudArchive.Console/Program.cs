@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CloudArchive.Configuration;
+using CommandLine;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CloudArchive.Configuration;
-using CommandLine;
-using Serilog;
 
 namespace CloudArchive.Console
 {
@@ -63,9 +63,6 @@ namespace CloudArchive.Console
                 areaData = config.Areas.Where(p => p.Name.Equals(options.Area, StringComparison.InvariantCultureIgnoreCase));
             }
             var areaList = areaData.ToList();
-            //var version = "11c35224-e8c3-4efe-9d03-6498f8a56f17";
-            //await new AzureServiceBusProvider().Submit(new Message { Action = "update", Area = options.Area, Content = version });
-            //return;
             foreach (var area in areaList)
             {
                 await RunIndexing(options, area.Name, options.FullUpdate);
@@ -125,41 +122,5 @@ namespace CloudArchive.Console
             }
             System.Console.WriteLine();
         }
-
-#if false && DEBUG
-
-        private static async Task RunSandbox(string area, bool fullUpdate = true)
-        {
-            var section = Config.Load(new EntryAssemblyLocationResolver());
-            var areaConfig = section.Areas.FirstOrDefault(p => p.Name.Equals(area, StringComparison.InvariantCultureIgnoreCase));
-
-            var package = FileStructure.CreatePackage(areaConfig, fullUpdate: fullUpdate);
-
-            if (package.RawFileDataList.Count > 0)
-            {
-                var index = FileIndexCreator.CreateFileIndex(package);
-
-                //var indexProvider = new AzureIndexProvider(enableServiceBus: false);
-                //var updatedSelectorArray = await indexProvider.Update(area, index);
-
-                //if (updatedSelectorArray != null)
-                //{
-                //    //IQueueProvider serviceBusProvider = new AzureServiceBusProvider();
-                //    //var task = serviceBusProvider.Submit(area, index);
-                //    //task.Wait();
-
-                //    //ISearchProvider search = new AzureSearchProvider();
-                //    //var searchTask = search.Update(area, index);
-                //    //searchTask.Wait();
-
-                //    System.Console.WriteLine("Finished reindexing " + area);
-                //}
-                //else
-                //{
-                //    System.Console.WriteLine("Error indexing " + area);
-                //}
-            }
-        }
-#endif
     }
 }

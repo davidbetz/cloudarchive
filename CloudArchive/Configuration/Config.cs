@@ -15,29 +15,6 @@ namespace CloudArchive.Configuration
         private static readonly object Lock = new object();
         private static readonly Dictionary<string, ConfigContent> Content = new Dictionary<string, ConfigContent>();
 
-        //public static Area LoadArea(string area)
-        //{
-        //    if (String.IsNullOrEmpty(area))
-        //    {
-        //        return null;
-        //    }
-        //    if (area.Contains("!"))
-        //    {
-        //        var tuple = Environment.Split(area);
-        //        return LoadArea(tuple.Item1, tuple.Item2);
-        //    }
-        //    //string environment = "production";
-        //    //if (area.Contains("aaaaaaaaaaaaaaa"))
-        //    //{
-        //    //    var partArray = area.Split('aaaaaaaaaaaaaaaaaaaaa');
-        //    //    area = partArray[0];
-        //    //    environment = partArray[1];
-        //    //}
-        //    //return LoadArea(area, environment);
-        //    var config = Load(GetConfigString());
-        //    return config.Areas.FirstOrDefault(p => p.Name.Equals(area, StringComparison.InvariantCultureIgnoreCase));
-        //}
-
         public static Area LoadArea(string area)
         {
             if (string.IsNullOrEmpty(area))
@@ -45,7 +22,6 @@ namespace CloudArchive.Configuration
                 return null;
             }
             var config = Load(GetConfigString());
-            //++ both for backward compatibility
             var areaConfig = config.Areas.FirstOrDefault(p => p.Name.Equals(area, StringComparison.InvariantCultureIgnoreCase));
             if (!String.IsNullOrEmpty(areaConfig?.StorageName))
             {

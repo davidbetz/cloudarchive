@@ -19,7 +19,5 @@ namespace CloudArchive
 
         [JsonProperty(PropertyName = "assetData")]
         public List<RawFileData> AssetDataList { set; get; }
-
-        //public List<string> FolderList { get; set; }
     }
 }
